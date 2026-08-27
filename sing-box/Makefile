@@ -113,7 +113,7 @@ define Package/sing-box/config
 endef
 
 GO_PKG_TAGS:=$(subst $(space),$(comma),$(strip \
-	$(if $(filter 1.27%,$(GO_VERSION)),http2legacy) \
+	http2legacy \
 	$(if $(CONFIG_SING_BOX_BUILD_ACME),with_acme) \
 	$(if $(CONFIG_SING_BOX_BUILD_CLASH_API),with_clash_api) \
 	$(if $(CONFIG_SING_BOX_BUILD_DHCP),with_dhcp) \
