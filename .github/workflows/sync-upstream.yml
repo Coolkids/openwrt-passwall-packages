@@ -11,13 +11,29 @@ permissions:
 
 jobs:
   sync:
-    name: Sync upstream repository
     runs-on: ubuntu-latest
 
     steps:
-      - name: Sync fork with upstream
-        env:
-          GH_TOKEN: ${{ secrets.token }}
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.token }}
+
+      - name: Configure upstream
         run: |
-          gh repo sync "${{ github.repository }}" \
-            --source Openwrt-Passwall/openwrt-passwall-packages
+          git remote add upstream \
+            https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git
+
+      - name: Fetch upstream
+        run: |
+          git fetch upstream main
+
+      - name: Sync main
+        run: |
+          git checkout main
+          git merge upstream/main
+
+      - name: Push
+        run: |
+          git push origin main
