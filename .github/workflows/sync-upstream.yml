@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Sync fork with upstream
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.token }}
         run: |
           gh repo sync "${{ github.repository }}" \
             --source Openwrt-Passwall/openwrt-passwall-packages
